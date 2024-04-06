@@ -1,76 +1,49 @@
 package handwriting;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-
 public class Solution {
 
-    class Node {
-        public int val;
-        public List<Node> children;
+    public int strStr(String haystack, String needle) {
 
-        public Node() {
+        if (needle.length() > haystack.length()) {
+            return -1;
         }
 
-        public Node(int _val) {
-            val = _val;
-        }
+        for (int i = 0; i < haystack.length(); i++) {
 
-        public Node(int _val, List<Node> _children) {
-            val = _val;
-            children = _children;
-        }
-    }
-
-    public List<Integer> preorder(Node root) {
-        ArrayList<Integer> res = new ArrayList<>();
-
-        if (root == null) {
-            return res;
-        }
-        return process(root, res);
-    }
-
-    public static List<Integer> process(Node root, List<Integer> res) {
-
-        res.add(root.val);
-
-        if (root.children != null && root.children.size() > 0) {
-            for (Node child : root.children) {
-                process(child, res);
+            if (haystack.length() - i < needle.length()) {
+                break;
             }
-        }
 
-        return res;
-    }
-
-
-    public List<Integer> preorder1(Node root) {
-
-        ArrayList<Integer> res = new ArrayList<>();
-
-        if (root == null) {
-            return res;
-        }
-
-        Stack<Node> stack = new Stack<>();
-        stack.push(root);
-
-        while (!stack.isEmpty()) {
-            Node pop = stack.pop();
-            res.add(pop.val);
-
-            List<Node> children = pop.children;
-
-            if (children != null && children.size() > 0) {
-                for (int i = children.size() - 1; i >= 0; i--) {
-                    stack.push(children.get(i));
+            if (haystack.charAt(i) == needle.charAt(0)) {
+                boolean flag = true;
+                for (int j = 1; j < needle.length(); j++) {
+                    if (haystack.charAt(i + j) != needle.charAt(j)) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag) {
+                    return i;
                 }
             }
-
         }
 
-        return res;
+        return -1;
+    }
+
+    public int strStr1(String haystack, String needle) {
+        int n = haystack.length(), m = needle.length();
+        char[] s = haystack.toCharArray(), p = needle.toCharArray();
+        // 枚举原串的「发起点」
+        for (int i = 0; i <= n - m; i++) {
+            // 从原串的「发起点」和匹配串的「首位」开始，尝试匹配
+            int a = i, b = 0;
+            while (b < m && s[a] == p[b]) {
+                a++;
+                b++;
+            } // 如果能够完全匹配，返回原串的「发起点」下标
+            if (b == m) return i;
+        }
+        return -1;
     }
 }
