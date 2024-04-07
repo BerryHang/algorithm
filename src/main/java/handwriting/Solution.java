@@ -2,48 +2,45 @@ package handwriting;
 
 public class Solution {
 
-    public int strStr(String haystack, String needle) {
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
 
-        if (needle.length() > haystack.length()) {
-            return -1;
+        TreeNode() {
         }
 
-        for (int i = 0; i < haystack.length(); i++) {
-
-            if (haystack.length() - i < needle.length()) {
-                break;
-            }
-
-            if (haystack.charAt(i) == needle.charAt(0)) {
-                boolean flag = true;
-                for (int j = 1; j < needle.length(); j++) {
-                    if (haystack.charAt(i + j) != needle.charAt(j)) {
-                        flag = false;
-                        break;
-                    }
-                }
-                if (flag) {
-                    return i;
-                }
-            }
+        TreeNode(int val) {
+            this.val = val;
         }
 
-        return -1;
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
     }
 
-    public int strStr1(String haystack, String needle) {
-        int n = haystack.length(), m = needle.length();
-        char[] s = haystack.toCharArray(), p = needle.toCharArray();
-        // 枚举原串的「发起点」
-        for (int i = 0; i <= n - m; i++) {
-            // 从原串的「发起点」和匹配串的「首位」开始，尝试匹配
-            int a = i, b = 0;
-            while (b < m && s[a] == p[b]) {
-                a++;
-                b++;
-            } // 如果能够完全匹配，返回原串的「发起点」下标
-            if (b == m) return i;
+    public int sumOfLeftLeaves(TreeNode root) {
+
+        if (root == null) {
+            return 0;
         }
-        return -1;
+
+        return process(root, false);
     }
+
+    public static int process(TreeNode node, boolean self) {
+
+        if (node == null) {
+            return 0;
+        }
+
+        if (node.left == null && node.right == null) {
+            return self ? node.val : 0;
+        }
+
+        return process(node.left, true) + process(node.right, false);
+    }
+
 }
