@@ -139,20 +139,20 @@ public class NetworkDelayTime {
         }
 
         public void heapify(int i) {
-            int l = i * 2 + 1;
+            int l = (i * 2) + 1;
             while (l < size) {
-                int smallIndex = l + 1 < size && heap[l + 1][1] < heap[l][1] ? l + 1 : l;
+                int smallIndex = l + 1 < size && heap[l + 1][1] < heap[l][1] ? (l + 1) : l;
                 smallIndex = heap[smallIndex][1] < heap[i][1] ? smallIndex : i;
                 if (smallIndex == i) {
                     break;
                 }
                 swap(smallIndex, i);
                 i = l;
-                l = i * 2 + 1;
+                l = (i * 2) + 1;
             }
         }
 
-        public void swap(int i, int j) {
+        private void swap(int i, int j) {
             int[] o1 = heap[i];
             int[] o2 = heap[j];
             int o1hi = hIndex[o1[0]];
