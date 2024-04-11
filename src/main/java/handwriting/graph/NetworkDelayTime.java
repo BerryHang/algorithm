@@ -95,22 +95,22 @@ public class NetworkDelayTime {
             this.size = 0;
         }
 
-        public void add(int kcur, int delay) {
+        public void add(int cur, int delay) {
 
-            if (used[kcur]) {
+            if (used[cur]) {
                 return;
             }
 
-            if (hIndex[kcur] == -1) {
-                heap[size][0] = kcur;
+            if (hIndex[cur] == -1) {
+                heap[size][0] = cur;
                 heap[size][1] = delay;
-                hIndex[kcur] = size;
+                hIndex[cur] = size;
                 heapInsert(size++);
             } else {
-                int index = hIndex[kcur];
-                if (delay <= heap[index][1]) {
-                    heap[index][1] = delay;
-                    heapInsert(index);
+                int hi = hIndex[cur];
+                if (delay <= heap[hi][1]) {
+                    heap[hi][1] = delay;
+                    heapInsert(hi);
                 }
             }
 
