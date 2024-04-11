@@ -50,7 +50,7 @@ public class NetworkDelayTime {
     }
 
     public static int networkDelayTime2(int[][] times, int n, int k) {
-        List<List<int[]>> nexts = new ArrayList<>();
+        ArrayList<ArrayList<int[]>> nexts = new ArrayList<>();
 
         for (int i = 0; i <= n; i++) {
             nexts.add(new ArrayList<>());
@@ -67,13 +67,13 @@ public class NetworkDelayTime {
         int max = 0;
 
         while (!heap.isEmpty()) {
-            int[] pop = heap.pop();
-            int cur = pop[0];
-            int delay = pop[1];
+            int[] record = heap.pop();
+            int cur = record[0];
+            int delay = record[1];
             num++;
             max = Math.max(max, delay);
             for (int[] next : nexts.get(cur)) {
-                heap.add(next[0], max + next[1]);
+                heap.add(next[0], delay + next[1]);
             }
         }
 
