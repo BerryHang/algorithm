@@ -147,7 +147,7 @@ public class NetworkDelayTime {
                     break;
                 }
                 swap(smallest, i);
-                i = l;
+                i = smallest;
                 l = (i * 2) + 1;
             }
         }
