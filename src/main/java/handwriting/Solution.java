@@ -1,5 +1,7 @@
 package handwriting;
 
+import java.util.Stack;
+
 public class Solution {
 
     public class TreeNode {
@@ -21,26 +23,29 @@ public class Solution {
         }
     }
 
-    public int sumOfLeftLeaves(TreeNode root) {
+    public boolean isUnivalTree(TreeNode root) {
 
-        if (root == null) {
-            return 0;
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        int value = root.val;
+        while (!stack.isEmpty()) {
+
+            TreeNode pop = stack.pop();
+
+            if (pop.val!=value){
+                return false;
+            }
+
+            if (pop.left!=null){
+                stack.push(pop.left);
+            }
+
+            if (pop.right!=null){
+                stack.push(pop.right);
+            }
+
         }
-
-        return process(root, false);
-    }
-
-    public static int process(TreeNode node, boolean self) {
-
-        if (node == null) {
-            return 0;
-        }
-
-        if (node.left == null && node.right == null) {
-            return self ? node.val : 0;
-        }
-
-        return process(node.left, true) + process(node.right, false);
+        return true;
     }
 
 }
