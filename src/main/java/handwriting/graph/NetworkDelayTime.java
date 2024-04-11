@@ -67,7 +67,7 @@ public class NetworkDelayTime {
         int max = 0;
 
         while (!heap.isEmpty()) {
-            int[] record = heap.pop();
+            int[] record = heap.poll();
             int cur = record[0];
             int delay = record[1];
             num++;
@@ -116,13 +116,13 @@ public class NetworkDelayTime {
 
         }
 
-        public int[] pop() {
-            int[] ints = heap[0];
+        public int[] poll() {
+            int[] ans = heap[0];
             swap(0, --size);
             heapify(0);
-            used[ints[0]] = true;
-            hIndex[ints[0]] = -1;
-            return ints;
+            used[ans[0]] = true;
+            hIndex[ans[0]] = -1;
+            return ans;
         }
 
         public boolean isEmpty() {
