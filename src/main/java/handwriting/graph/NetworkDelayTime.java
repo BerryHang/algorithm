@@ -82,17 +82,17 @@ public class NetworkDelayTime {
 
     public static class Heap {
 
-        boolean[] used;
-        int[][] heap;
-        int[] hIndex;
-        int size;
+        public boolean[] used;
+        public int[][] heap;
+        public int[] hIndex;
+        public int size;
 
         public Heap(int n) {
-            this.used = new boolean[n + 1];
-            this.heap = new int[n + 1][2];
-            this.hIndex = new int[n + 1];
+            used = new boolean[n + 1];
+            heap = new int[n + 1][2];
+            hIndex = new int[n + 1];
             Arrays.fill(hIndex, -1);
-            this.size = 0;
+            size = 0;
         }
 
         public void add(int cur, int delay) {
