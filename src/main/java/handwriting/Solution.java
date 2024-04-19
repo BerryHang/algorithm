@@ -1,51 +1,52 @@
 package handwriting;
 
-import java.util.Stack;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Solution {
 
-    public class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode() {
-        }
-
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
+    public static void main(String[] args) {
+        wordPattern("abba", "dog cat cat dog");
     }
 
-    public boolean isUnivalTree(TreeNode root) {
+    public static boolean wordPattern(String pattern, String s) {
 
-        Stack<TreeNode> stack = new Stack<>();
-        stack.push(root);
-        int value = root.val;
-        while (!stack.isEmpty()) {
+        Map<Character, String> map1 = new HashMap<>();
+        Map<String, Character> map2 = new HashMap<>();
 
-            TreeNode pop = stack.pop();
+        int n = pattern.length();
+        int l = s.length();
+        int left = 0;
+        int i = 0;
+        for (char c : pattern.toCharArray()) {
 
-            if (pop.val!=value){
+            if (left >= l) {
                 return false;
             }
 
-            if (pop.left!=null){
-                stack.push(pop.left);
+            int right = left;
+            while (right < l && s.charAt(right) != ' ') {
+                right++;
+            }
+            String sub = s.substring(left, right);
+
+            if (map1.containsKey(c) && !map1.get(c).equals(sub)) {
+                return false;
             }
 
-            if (pop.right!=null){
-                stack.push(pop.right);
+            if (map2.containsKey(sub) && map2.get(sub) != c) {
+                return false;
             }
 
+            map1.put(c, sub);
+            map2.put(sub, c);
+
+            left = right + 1;
+            i++;
         }
-        return true;
+
+        return left >= l;
     }
 
 }
+
