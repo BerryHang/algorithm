@@ -70,7 +70,6 @@ public class RobotWalk {
         return process1(N, cur - 1, aim, k - 1) + process1(N, cur + 1, aim, k - 1);
     }
 
-
     public static int ways2(int N, int start, int aim, int K) {
 
         //定义二维数组保存已经计算过的位置
@@ -85,7 +84,6 @@ public class RobotWalk {
 
         return process2(N, start, aim, K, dp);
     }
-
 
     public static int process2(int N, int cur, int aim, int k, int[][] dp) {
 
